@@ -14,6 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::post('login', 'AuthController@login') -> name('login');
+Route::post('register', 'AuthController@register') -> name('register');
+
+Route::post('logout', 'AuthController@logout') -> name('logout');
+Route::apiResource('user', 'UserController');
+
+Route::post('users', 'UserController@indexWithOutAdmin') -> name('user.indexWithOutAdmin');
+Route::apiResource('task', 'TaskController');
+Route::get('user/{id}/tasks', 'TaskController@taskList') -> name('task.taskList');
